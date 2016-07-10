@@ -5,8 +5,6 @@ sudo: false
 language: php
 
 php:
-  - 5.3
-  - 5.4
   - 5.5
   - 5.6
   - 7.0
@@ -22,10 +20,15 @@ matrix:
       env: DB=MYSQL CORE_RELEASE=3.1
     - php: 5.6
       env: DB=PGSQL CORE_RELEASE=3.2
+    - php: 5.6
+      env: DB=PGSQL CORE_RELEASE=3.3
+    - php: 5.6
+      env: DB=PGSQL CORE_RELEASE=3.4
   allow_failures:
     - php: 7.0
 
 before_script:
+  - composer clear-cache
   - composer self-update || true
   - git clone git://github.com/silverstripe-labs/silverstripe-travis-support.git ~/travis-support
   - php ~/travis-support/travis_setup.php --source `pwd` --target ~/builds/ss
@@ -33,4 +36,4 @@ before_script:
   - composer install
 
 script:
-  - vendor/bin/phpunit silverstripe-basiccalendar/tests
+  - vendor/bin/phpunit basiccalendar/tests
